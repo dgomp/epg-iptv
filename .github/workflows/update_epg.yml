@@ -1,0 +1,35 @@
+name: Atualizar EPG Automaticamente
+
+on:
+  schedule:
+    # Executa todos os dias às 6:00 UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Permite execução manual
+
+jobs:
+  update-epg:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout do repositório
+      uses: actions/checkout@v4
+      
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+        
+    - name: Executar download do EPG
+      run: python epg_downloader.py
+      
+    - name: Commit e push das mudanças
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add epg_files/ backups/ epg_download.log
+        git diff --quiet && git diff --staged --quiet || (git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push) 
