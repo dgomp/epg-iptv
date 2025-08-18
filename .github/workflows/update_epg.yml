@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Checkout do repositório
-      uses: actions/checkflow@v4
+      uses: actions/checkout@v4
       
     - name: Configurar Python
       uses: actions/setup-python@v4
@@ -30,8 +30,12 @@ jobs:
       run: |
         echo "EPG atualizado em $(date -u +'%Y-%m-%d %H:%M:%S UTC')" > epg_status.txt
         echo "Arquivo mais recente: epg_latest.xml" >> epg_status.txt
-        echo "Tamanho: $(du -h epg_files/epg_latest.xml | cut -f1)" >> epg_status.txt
-        echo "Release criado automaticamente" >> epg_status.txt
+        if [ -f "epg_files/epg_latest.xml" ]; then
+          echo "Tamanho: $(du -h epg_files/epg_latest.xml | cut -f1)" >> epg_status.txt
+          echo "Última modificação: $(stat -c %y epg_files/epg_latest.xml)" >> epg_status.txt
+        fi
+        echo "Arquivos disponíveis localmente:" >> epg_status.txt
+        ls -la epg_files/ >> epg_status.txt
         
     - name: Criar Release com arquivos EPG
       uses: softprops/action-gh-release@v1
