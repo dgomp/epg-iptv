@@ -2,7 +2,8 @@ name: Atualizar EPG Automaticamente
 
 on:
   schedule:
-    - cron: '0 6 * * *'
+    # Executa todos os dias às 7:00 GMT-3 (10:00 UTC)
+    - cron: '0 10 * * *'
   workflow_dispatch:
 
 jobs:
