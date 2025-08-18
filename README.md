@@ -40,14 +40,48 @@ epg-iptv/
 
 ## 📥 Como Acessar o EPG
 
-### **GitHub Releases (Recomendado):**
+### **🚀 Link Direto para Download (RECOMENDADO):**
+```
+https://github.com/dgomp/epg-iptv/releases/latest/download/epg_latest.xml
+```
+
+### **📋 GitHub Releases:**
 - **Releases:** https://github.com/dgomp/epg-iptv/releases
 - **Mais recente:** https://github.com/dgomp/epg-iptv/releases/latest
 - **Arquivo EPG:** `epg_latest.xml` disponível para download
 
-### **Status da Atualização:**
+### **📊 Status da Atualização:**
 - **Arquivo de status:** https://raw.githubusercontent.com/dgomp/epg-iptv/main/epg_status.txt
 - **Informações:** Data, hora e tamanho da última atualização
+
+## 🎯 Uso Rápido
+
+### **Para Sistemas IPTV:**
+1. **Copie o link direto:**
+   ```
+   https://github.com/dgomp/epg-iptv/releases/latest/download/epg_latest.xml
+   ```
+2. **Cole no seu player IPTV** (VLC, Kodi, Tivimate, etc.)
+3. **O EPG será sempre atualizado** automaticamente
+
+### **Para Aplicações Web/API:**
+```javascript
+// JavaScript
+fetch('https://github.com/dgomp/epg-iptv/releases/latest/download/epg_latest.xml')
+  .then(response => response.text())
+  .then(epgData => {
+    // Usar dados do EPG
+    console.log('EPG atualizado:', epgData);
+  });
+```
+
+## 📊 Informações dos Arquivos
+
+- **Formato:** XML (EPG padrão)
+- **Tamanho:** ~1.3 GB (descomprimido)
+- **Fonte:** epgshare01.online
+- **Atualização:** Diária às 7:00 GMT-3
+- **Disponibilidade:** 24/7 via GitHub Releases
 
 ## 🛠️ Instalação e Uso
 
