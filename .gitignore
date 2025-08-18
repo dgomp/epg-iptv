@@ -47,6 +47,6 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Arquivos EPG (EXCLUIR - são muito grandes)
-epg_files/
-backups/
+# NÃO EXCLUIR as pastas EPG (comentadas)
+# epg_files/
+# backups/
