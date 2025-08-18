@@ -30,6 +30,11 @@ jobs:
     - name: Commit e push das mudanças
       run: |
         git config --local user.email "diego_zl@msn.com"
-        git config --local user.name "Diego Parente"
-        git add epg_files/ backups/ epg_download.log
-        git diff --quiet && git diff --staged --quiet || (git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')" && git push) 
+        git config --local user.name "dgomp"
+        git add epg_files/ backups/
+        if [ -n "$(git status --porcelain)" ]; then
+          git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git push
+        else
+          echo "Nenhuma mudança para commitar"
+        fi
