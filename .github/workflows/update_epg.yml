@@ -43,8 +43,8 @@ jobs:
         files: |
           epg_files/epg_latest.xml
           epg_files/*.xml.gz
-        tag_name: "epg-$(date +'%Y%m%d-%H%M%S')"
-        name: "EPG Atualizado - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+        tag_name: epg-${{ github.run_number }}
+        name: "EPG Atualizado - ${{ github.run_number }}"
         body: |
           EPG atualizado automaticamente
           
@@ -53,9 +53,8 @@ jobs:
           - **\*.xml.gz**: Arquivo comprimido
           
           ## Informações:
-          - Data: $(date +'%Y-%m-%d %H:%M:%S UTC')
-          - Tamanho XML: $(du -h epg_files/epg_latest.xml | cut -f1)
-          - Tamanho GZ: $(du -h epg_files/*.xml.gz | cut -f1)
+          - Run ID: ${{ github.run_number }}
+          - Data: ${{ github.event.head_commit.timestamp }}
           
           ## Uso:
           Use o arquivo epg_latest.xml para sistemas IPTV
@@ -69,5 +68,5 @@ jobs:
         git config --local user.email "diego_zl@msn.com"
         git config --local user.name "dgomp"
         git add epg_status.txt
-        git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+        git commit -m "Atualização automática do EPG - ${{ github.run_number }}"
         git push
