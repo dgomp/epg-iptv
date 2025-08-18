@@ -47,6 +47,6 @@ logs/
 .DS_Store
 Thumbs.db
 
-# Arquivos EPG (opcional - remova se quiser versionar)
-# epg_files/
-# backups/ 
+# Arquivos EPG (EXCLUIR - são muito grandes)
+epg_files/
+backups/

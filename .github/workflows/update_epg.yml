@@ -2,9 +2,8 @@ name: Atualizar EPG Automaticamente
 
 on:
   schedule:
-    # Executa todos os dias às 6:00 UTC
     - cron: '0 6 * * *'
-  workflow_dispatch: # Permite execução manual
+  workflow_dispatch:
 
 jobs:
   update-epg:
@@ -27,14 +26,16 @@ jobs:
     - name: Executar download do EPG
       run: python epg_downloader.py
       
-    - name: Commit e push das mudanças
+    - name: Criar arquivo de status (sem arquivos grandes)
+      run: |
+        echo "EPG atualizado em $(date -u +'%Y-%m-%d %H:%M:%S UTC')" > epg_status.txt
+        echo "Arquivo mais recente: epg_latest.xml" >> epg_status.txt
+        echo "Tamanho: $(du -h epg_files/epg_latest.xml | cut -f1)" >> epg_status.txt
+        
+    - name: Commit e push do status
       run: |
         git config --local user.email "diego_zl@msn.com"
         git config --local user.name "dgomp"
-        git add epg_files/ backups/
-        if [ -n "$(git status --porcelain)" ]; then
-          git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-          git push
-        else
-          echo "Nenhuma mudança para commitar"
-        fi
+        git add epg_status.txt
+        git commit -m "Atualização automática do EPG - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+        git push
