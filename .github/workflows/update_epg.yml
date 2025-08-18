@@ -11,7 +11,7 @@ jobs:
     
     steps:
     - name: Checkout do repositório
-      uses: actions/checkout@v4
+      uses: actions/checkflow@v4
       
     - name: Configurar Python
       uses: actions/setup-python@v4
@@ -26,18 +26,41 @@ jobs:
     - name: Executar download do EPG
       run: python epg_downloader.py
       
-    - name: Criar arquivo de status detalhado
+    - name: Criar arquivo de status
       run: |
         echo "EPG atualizado em $(date -u +'%Y-%m-%d %H:%M:%S UTC')" > epg_status.txt
         echo "Arquivo mais recente: epg_latest.xml" >> epg_status.txt
-        if [ -f "epg_files/epg_latest.xml" ]; then
-          echo "Tamanho: $(du -h epg_files/epg_latest.xml | cut -f1)" >> epg_status.txt
-          echo "Última modificação: $(stat -c %y epg_files/epg_latest.xml)" >> epg_status.txt
-        fi
-        echo "Arquivos disponíveis localmente:" >> epg_status.txt
-        ls -la epg_files/ >> epg_status.txt
+        echo "Tamanho: $(du -h epg_files/epg_latest.xml | cut -f1)" >> epg_status.txt
+        echo "Release criado automaticamente" >> epg_status.txt
         
-    - name: Commit apenas do status (sem arquivos grandes)
+    - name: Criar Release com arquivos EPG
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          epg_files/epg_latest.xml
+          epg_files/*.xml.gz
+        tag_name: "epg-$(date +'%Y%m%d-%H%M%S')"
+        name: "EPG Atualizado - $(date +'%Y-%m-%d %H:%M:%S UTC')"
+        body: |
+          EPG atualizado automaticamente
+          
+          ## Arquivos disponíveis:
+          - **epg_latest.xml**: Arquivo EPG mais recente
+          - **\*.xml.gz**: Arquivo comprimido
+          
+          ## Informações:
+          - Data: $(date +'%Y-%m-%d %H:%M:%S UTC')
+          - Tamanho XML: $(du -h epg_files/epg_latest.xml | cut -f1)
+          - Tamanho GZ: $(du -h epg_files/*.xml.gz | cut -f1)
+          
+          ## Uso:
+          Use o arquivo epg_latest.xml para sistemas IPTV
+        draft: false
+        prerelease: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Commit do status
       run: |
         git config --local user.email "diego_zl@msn.com"
         git config --local user.name "dgomp"
