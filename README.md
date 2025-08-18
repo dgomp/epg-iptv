@@ -6,24 +6,24 @@
 
 ## 🎯 Descrição
 
-Este projeto automatiza o download e atualização de arquivos EPG (Electronic Program Guide) para sistemas IPTV. O sistema baixa automaticamente o arquivo EPG mais recente do [epgshare01.online](https://epgshare01.online/epgshare01/epg_ripper_ALL_SOURCES1.xml.gz) e mantém uma versão sempre atualizada disponível.
+Este projeto automatiza o download e atualização de arquivos EPG (Electronic Program Guide) para sistemas IPTV. O sistema baixa automaticamente o arquivo EPG mais recente do [epgshare01.online](https://epgshare01.online/epgshare01/epg_ripper_ALL_SOURCES1.xml.gz) e disponibiliza via GitHub Releases para fácil acesso.
 
 ## ✨ Características
 
-- **🔄 Atualização Automática**: Executa diariamente via GitHub Actions
+- **🔄 Atualização Automática**: Executa diariamente às 7:00 GMT-3 (10:00 UTC) via GitHub Actions
 - **📦 Download Inteligente**: Baixa e descomprime arquivos .gz automaticamente
+- **🚀 GitHub Releases**: Disponibiliza arquivos EPG via Releases automáticos
 - **💾 Sistema de Backup**: Mantém histórico de versões anteriores
-- **🧹 Limpeza Automática**: Remove arquivos antigos para economizar espaço
 - **📝 Logging Completo**: Registra todas as operações para auditoria
-- **🔗 Link Simbólico**: Sempre aponta para a versão mais recente
+- **🔗 Arquivo Sempre Atualizado**: Sempre disponível no release mais recente
 
 ## 🚀 Como Funciona
 
-1. **Agendamento**: O GitHub Actions executa o script diariamente às 6:00 UTC
+1. **Agendamento**: O GitHub Actions executa o script diariamente às 7:00 GMT-3
 2. **Download**: Baixa o arquivo EPG comprimido do servidor
 3. **Processamento**: Descomprime o arquivo e cria backup
-4. **Organização**: Organiza arquivos por data/hora e mantém link para versão atual
-5. **Limpeza**: Remove versões antigas (mais de 7 dias)
+4. **Release**: Cria automaticamente um GitHub Release com os arquivos EPG
+5. **Disponibilização**: Arquivos ficam acessíveis para download direto
 
 ## 📁 Estrutura do Projeto
 
@@ -31,15 +31,23 @@ Este projeto automatiza o download e atualização de arquivos EPG (Electronic P
 epg-iptv/
 ├── .github/
 │   └── workflows/
-│       └── update_epg.yml          # Workflow automático
-├── epg_files/                      # Arquivos EPG baixados
-│   ├── epg_latest.xml             # Link para versão mais recente
-│   └── epg_ripper_*.xml           # Arquivos com timestamp
-├── backups/                        # Backups das versões
+│       └── update_epg.yml          # Workflow automático com Releases
 ├── epg_downloader.py              # Script principal
 ├── requirements.txt                # Dependências Python
+├── epg_status.txt                 # Status da última atualização
 └── README.md                      # Este arquivo
 ```
+
+## 📥 Como Acessar o EPG
+
+### **GitHub Releases (Recomendado):**
+- **Releases:** https://github.com/dgomp/epg-iptv/releases
+- **Mais recente:** https://github.com/dgomp/epg-iptv/releases/latest
+- **Arquivo EPG:** `epg_latest.xml` disponível para download
+
+### **Status da Atualização:**
+- **Arquivo de status:** https://raw.githubusercontent.com/dgomp/epg-iptv/main/epg_status.txt
+- **Informações:** Data, hora e tamanho da última atualização
 
 ## 🛠️ Instalação e Uso
 
@@ -73,7 +81,7 @@ O projeto já está configurado para executar automaticamente via GitHub Actions
 
 1. **Fork ou clone** este repositório para sua conta GitHub
 2. **Habilite GitHub Actions** no repositório
-3. **Configure permissões** para permitir que Actions façam commit
+3. **Configure permissões** para permitir que Actions criem Releases
 
 ## 🔧 Configuração
 
@@ -90,28 +98,18 @@ self.epg_url = "sua_url_do_epg_aqui"
 Edite o arquivo `.github/workflows/update_epg.yml` e modifique o cron:
 
 ```yaml
+- cron: '0 10 * * *'  # Diário às 7:00 GMT-3 (10:00 UTC)
 - cron: '0 */6 * * *'  # A cada 6 horas
 - cron: '0 6,18 * * *' # 2x por dia
-- cron: '0 6 * * 1'    # Semanal (segundas)
-```
-
-### Configurar Retenção de Arquivos
-
-No script, modifique o parâmetro `keep_days`:
-
-```python
-downloader.cleanup_old_files(keep_days=30)  # Manter por 30 dias
 ```
 
 ## 📊 Monitoramento
 
-### Logs
+### Status da Atualização
 
-O sistema gera logs detalhados em `epg_download.log` incluindo:
-- Timestamp de cada operação
-- Status de download
-- Erros e exceções
-- Operações de limpeza
+- **Arquivo de status:** `epg_status.txt` com informações detalhadas
+- **GitHub Releases:** Histórico de todas as versões disponibilizadas
+- **GitHub Actions:** Logs de execução e status das operações
 
 ### GitHub Actions
 
@@ -132,7 +130,7 @@ Acesse a aba "Actions" no seu repositório para:
 ### Erro de Permissões
 
 - Configure corretamente as permissões do GitHub Actions
-- Verifique se o repositório permite commits automáticos
+- Verifique se o repositório permite criação de Releases
 
 ### Arquivos Não Atualizados
 
@@ -157,13 +155,13 @@ Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICE
 ## 🙏 Agradecimentos
 
 - [epgshare01.online](https://epgshare01.online) por fornecer os dados EPG
-- GitHub por fornecer a infraestrutura de Actions
+- GitHub por fornecer a infraestrutura de Actions e Releases
 
 ## 📞 Suporte
 
 - **Issues**: [GitHub Issues](https://github.com/dgomp/epg-iptv/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/dgomp/epg-iptv/discussions)
-- **Wiki**: [Documentação detalhada](https://github.com/dgomp/epg-iptv/wiki)
+- **Releases**: [GitHub Releases](https://github.com/dgomp/epg-iptv/releases)
 
 ---
 
