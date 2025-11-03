@@ -1,11 +1,11 @@
-EPG atualizado em 2025-11-02 10:24:39 UTC
+EPG atualizado em 2025-11-03 10:31:10 UTC
 Arquivo mais recente: epg_latest.xml
 Tamanho: 0
-Última modificação: 2025-11-02 10:24:39.779987759 +0000
+Última modificação: 2025-11-03 10:31:10.722036889 +0000
 Arquivos disponíveis localmente:
-total 1824288
-drwxr-xr-x 2 runner runner       4096 Nov  2 10:24 .
-drwxr-xr-x 6 runner runner       4096 Nov  2 10:24 ..
-lrwxrwxrwx 1 runner runner         43 Nov  2 10:24 epg_latest.xml -> epg_ripper_ALL_SOURCES1_20251102_102433.xml
--rw-r--r-- 1 runner runner 1679031862 Nov  2 10:24 epg_ripper_ALL_SOURCES1_20251102_102433.xml
--rw-r--r-- 1 runner runner  189022189 Nov  2 10:24 epg_ripper_ALL_SOURCES1_20251102_102433.xml.gz
+total 1861964
+drwxr-xr-x 2 runner runner       4096 Nov  3 10:31 .
+drwxr-xr-x 6 runner runner       4096 Nov  3 10:31 ..
+lrwxrwxrwx 1 runner runner         43 Nov  3 10:31 epg_latest.xml -> epg_ripper_ALL_SOURCES1_20251103_103104.xml
+-rw-r--r-- 1 runner runner 1720109411 Nov  3 10:31 epg_ripper_ALL_SOURCES1_20251103_103104.xml
+-rw-r--r-- 1 runner runner  186521576 Nov  3 10:31 epg_ripper_ALL_SOURCES1_20251103_103104.xml.gz
